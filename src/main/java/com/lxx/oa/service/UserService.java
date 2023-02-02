@@ -8,7 +8,7 @@ import javax.security.auth.login.LoginException;
 /**
  * @author 林修贤
  * @date 2023/2/2
- * @description
+ * @description 这是实现具体业务逻辑的类
  */
 public class UserService {
     private UserMapper userMapper = new UserMapper();

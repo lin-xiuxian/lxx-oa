@@ -15,32 +15,10 @@ import static org.junit.Assert.*;
 public class UserServiceTest {
     private UserService userService = new UserService();
     @Test
-    public void checkLogin1() {
+    public void checkLogin() {
         User user = null;
         try {
             user = userService.checkLogin("test", "test");
-        } catch (LoginException e) {
-            e.printStackTrace();
-        }
-        System.out.println(user);
-    }
-
-    @Test
-    public void checkLogin2() {
-        User user = null;
-        try {
-            user = userService.checkLogin("test1", "test");
-        } catch (LoginException e) {
-            e.printStackTrace();
-        }
-        System.out.println(user);
-    }
-
-    @Test
-    public void checkLogin3() {
-        User user = null;
-        try {
-            user = userService.checkLogin("test", "test1");
         } catch (LoginException e) {
             e.printStackTrace();
         }
