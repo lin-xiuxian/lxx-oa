@@ -16,8 +16,9 @@ import java.util.function.Function;
  * @description 工具类确保 SqlSessionFactory 对象的唯一性
  */
 public class MybatisUtils {
+    //利用static(静态)属于类不属于对象,且全局唯一
     private static SqlSessionFactory sqlSessionFactory = null;
-
+    //利用静态块在初始化类时实例化sqlSessionFactory
     static{
         Reader reader = null;
         try{
@@ -30,25 +31,6 @@ public class MybatisUtils {
             throw new ExceptionInInitializerError(e);
         }
 
-    }
-
-
-    /**
-     * openSession 创建一个新的 SqlSession 对象
-     * @return SqlSession 对象
-     */
-    public static SqlSession openSession(){
-        return sqlSessionFactory.openSession();
-    }
-
-    /**
-     * 释放一个有效的 SqlSession 对象
-     * @param session
-     */
-    public static void closeSession(SqlSession session){
-        if(session != null){
-            session.close();
-        }
     }
 
     /**
