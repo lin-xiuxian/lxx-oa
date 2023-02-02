@@ -68,8 +68,8 @@ public class MybatisUtils {
 
     /**
      * 执行数据插入语句
-     * @param func
-     * @return
+     * @param func 要插入的语句代码块
+     * @return 执行结果
      */
     public static Object executeUpdate(Function<SqlSession, Object> func){
         //openSession() 传入 false 参数表示手动提交/回滚事务
