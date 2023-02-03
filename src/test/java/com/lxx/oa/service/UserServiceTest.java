@@ -18,7 +18,7 @@ public class UserServiceTest {
     public void checkLogin() {
         User user = null;
         try {
-            user = userService.checkLogin("test", "test");
+            user = userService.checkLogin("m8", "test");
         } catch (LoginException e) {
             e.printStackTrace();
         }

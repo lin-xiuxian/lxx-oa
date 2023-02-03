@@ -42,6 +42,9 @@ public class LoginServlet extends HttpServlet {
         ResponseUtils resp = null;
         try {
             User user = userService.checkLogin(username, password);
+            //如果 密码 和 盐的关键信息不设置为空，response会把带有关键信息的json字串返回前端
+            user.setPassword(null);
+            user.setSalt(null);
             //处理结果编码， 0 代表处理成功，非 0 代表处理失败
             resp = new ResponseUtils().put("user", user);
         } catch (LoginException e) {

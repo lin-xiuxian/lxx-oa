@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>OA 办公系统</title>
+    <title>办公OA系统</title>
     <!--引入样式-->
     <link rel="stylesheet" type="text/css" href="/assets/element-plus/index.css"/>
     <!--引入组件库-->
@@ -67,6 +67,20 @@
                 form.validate((valid) => {
                     if(valid){
                         console.info("表单校验成功，准备提交数据");
+                        const form = this.form;
+                        const $message = this.$message;
+                        const params = new URLSearchParams();
+                        params.append("username", form.username);
+                        params.append("password", form.password);
+                        axios.post("/api/login", params, {}).then(function(response){
+                            console.info(response);
+                            const json = response.data;
+                            if(json.code == "0"){
+                                window.location.href = "/index.html";
+                            } else {
+                                $message.error({message:json.message,offset:100});
+                            }
+                        });
                     }
                 })
             }
