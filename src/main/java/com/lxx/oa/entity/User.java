@@ -6,6 +6,12 @@ package com.lxx.oa.entity;
  * @description 用户实体类
  */
 public class User {
+    private Long userId;
+    private String userName;
+    private String password;
+    private Long employeeId;
+    private Integer salt;
+
     @Override
     public String toString() {
         return "User{" +
@@ -16,13 +22,6 @@ public class User {
                 ", salt=" + salt +
                 '}';
     }
-
-    private Long userId;
-    private String userName;
-    private String password;
-    private Long employeeId;
-    private Integer salt;
-
     public Long getUserId() {
         return userId;
     }
