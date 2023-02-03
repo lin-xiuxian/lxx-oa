@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lxx.oa.entity.User;
 import com.lxx.oa.service.UserService;
+import com.lxx.oa.utils.ResponseUtils;
 import jdk.internal.dynalink.linker.LinkerServices;
 
 import javax.security.auth.login.LoginException;
@@ -38,24 +39,16 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         //调用业务逻辑
-        Map result = new LinkedHashMap<>();
+        ResponseUtils resp = null;
         try {
             User user = userService.checkLogin(username, password);
             //处理结果编码， 0 代表处理成功，非 0 代表处理失败
-            result.put("code", "0");
-            result.put("message", "success");
-            Map data = new LinkedHashMap();
-            data.put("user", user);
-            result.put("data", data);
+            resp = new ResponseUtils().put("user", user);
         } catch (LoginException e) {
             e.printStackTrace();
-            result.put("code", e.getClass().getSimpleName());
-            result.put("message", e.getMessage());
+            resp = new ResponseUtils(e.getClass().getSimpleName(), e.getMessage());
         }
         //返回json结果
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        String json = objectMapper.writeValueAsString(result);
-        response.getWriter().println(json);
+        response.getWriter().println(resp.toJsonString());
     }
 }
