@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="lxx-oa">
+    <output-path>$PROJECT_DIR$/out/artifacts/lxx_oa</output-path>
+    <root id="archive" name="lxx-oa.war">
+      <element id="artifact" artifact-name="lxx-oa:Web exploded" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/out/artifacts/lxx_oa_Web_exploded/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>
