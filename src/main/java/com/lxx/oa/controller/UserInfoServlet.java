@@ -34,7 +34,7 @@ public class UserInfoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String uid = request.getParameter("uid");
         String eid = request.getParameter("eid");
-        List<Node> nodes = rbacService.selectNodeByUserId(Long.parseLong(uid));
+        List<Node> nodes = rbacService.selectNodeByUserId(uid);
         List<Map> treeList = new ArrayList<>();
         Map module = null;
         for(Node node: nodes){

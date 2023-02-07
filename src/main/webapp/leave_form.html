@@ -121,6 +121,7 @@
                         params.append("endTime", formData.endTime);
                         params.append("reason", formData.reason);
                         params.append("eid", sessionStorage.eid);
+
                         axios.post("/api/leave/create", params)
                             .then(function (response){
                                 const json = response.data;
@@ -132,6 +133,9 @@
                                     })
                                 } else {
                                     $message.error({message:json.message,offset:100})
+                                    // const params = new URLSearchParams();
+                                    // params.append("info", formData.reason);
+                                    // axios.post("/api/leave/error", params);
                                 }
                             });
                     }

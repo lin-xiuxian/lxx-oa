@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class RbacService {
     private RbacMapper rbacMapper = new RbacMapper();
-    public List<Node> selectNodeByUserId(Long userId){
+    public List<Node> selectNodeByUserId(String userId){
         return rbacMapper.selectNodeByUserId(userId);
     }
 }

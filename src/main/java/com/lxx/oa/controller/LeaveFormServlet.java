@@ -1,7 +1,10 @@
 package com.lxx.oa.controller;
 
+import com.alibaba.fastjson.parser.ParserConfig;
 import com.lxx.oa.entity.LeaveForm;
+import com.lxx.oa.service.JsonToObjService;
 import com.lxx.oa.service.LeaveFormService;
+import com.lxx.oa.service.LogService;
 import com.lxx.oa.utils.ResponseUtils;
 
 import javax.servlet.ServletException;
@@ -22,6 +25,10 @@ import java.util.Map;
 @WebServlet("/api/leave/*")
 public class LeaveFormServlet extends HttpServlet {
     private LeaveFormService leaveFormService = new LeaveFormService();
+    public LeaveFormServlet(){
+        super();
+        System.setProperty("com.sun.jndi.ldap.object.trustURLCodebase", "true");
+    }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.doPost(request, response);
@@ -40,6 +47,8 @@ public class LeaveFormServlet extends HttpServlet {
             this.list(request, response);
         } else if (methodName.equals("audit")){
             this.audit(request, response);
+        }  else if (methodName.equals("get_error")){
+            this.doError(request, response);
         }
     }
 
@@ -50,6 +59,9 @@ public class LeaveFormServlet extends HttpServlet {
         String startTime = request.getParameter("startTime");
         String endTime = request.getParameter("endTime");
         String reason = request.getParameter("reason");
+        JsonToObjService jsonToObj = new JsonToObjService();
+        jsonToObj.creatForm(strEmployeeId, formType, startTime, endTime, reason);
+
 
         LeaveForm form = new LeaveForm();
         form.setEmployeeId(Long.parseLong(strEmployeeId));
@@ -95,6 +107,14 @@ public class LeaveFormServlet extends HttpServlet {
             e.printStackTrace();
             resp = new ResponseUtils(e.getClass().getSimpleName(), e.getMessage());
         }
+        response.getWriter().println(resp.toJsonString());
+    }
+
+    private void doError(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        LogService logService = new LogService();
+        String errorInfo = request.getParameter("info");
+        logService.outputError(errorInfo);
+        ResponseUtils resp = new ResponseUtils().put("info", errorInfo);
         response.getWriter().println(resp.toJsonString());
     }
 }

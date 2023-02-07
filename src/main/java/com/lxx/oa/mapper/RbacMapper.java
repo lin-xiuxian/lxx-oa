@@ -12,7 +12,7 @@ import java.util.List;
  * @description
  */
 public class RbacMapper {
-    public List<Node> selectNodeByUserId(Long userId){
+    public List<Node> selectNodeByUserId(String userId){
         List list = (List)MybatisUtils.executeQuery(sqlSession -> sqlSession.selectList("rbacmapper.selectNodeByUserId", userId));
         return list;
     }
