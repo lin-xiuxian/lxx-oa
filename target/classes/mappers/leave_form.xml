@@ -14,6 +14,7 @@
         where
             f.form_id = pf.form_id
             and f.employee_id = e.employee_id
+            and e.department_id = d.department_id
             <if test="pf_state != null">
                 and pf.state = #{pf_state}
             </if>
