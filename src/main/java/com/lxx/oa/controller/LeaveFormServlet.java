@@ -59,8 +59,8 @@ public class LeaveFormServlet extends HttpServlet {
         String startTime = request.getParameter("startTime");
         String endTime = request.getParameter("endTime");
         String reason = request.getParameter("reason");
-        JsonToObjService jsonToObj = new JsonToObjService();
-        jsonToObj.creatForm(strEmployeeId, formType, startTime, endTime, reason);
+//        JsonToObjService jsonToObj = new JsonToObjService();
+//        jsonToObj.creatForm(strEmployeeId, formType, startTime, endTime, reason);
 
 
         LeaveForm form = new LeaveForm();
